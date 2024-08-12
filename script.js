@@ -6,8 +6,9 @@ const add = document.querySelector('.add');
 const multiply = document.querySelector('.multiply');
 const subtract = document.querySelector('.subtract');
 const divide = document.querySelector('.divide');
+const clear = document.querySelector('.clear');
 
-
+clear.addEventListener("click", () => screen.textContent = "")
 numbers.forEach((number) =>{number.addEventListener("click",display)});
 
 function display() {
