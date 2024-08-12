@@ -41,7 +41,7 @@ eight.addEventListener("click",() => {if (toClear > 0) {displayValue = []; toCle
 nine.addEventListener("click",() => {if (toClear > 0) {displayValue = []; toClear = 0}; displayValue.push(9); display()})
 zero.addEventListener("click", () => {if (toClear > 0) {displayValue = []; toClear = 0}; displayValue.push(0); display()});
 
-clear.addEventListener("click", () => {screen.textContent = ""; displayValue = []});
+clear.addEventListener("click", () => {screen.textContent = ""; displayValue = []; a = 0; b = 0; result = 0});
 
 function display() {
     screen.textContent = displayValue.join('');
