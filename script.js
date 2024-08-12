@@ -1,7 +1,7 @@
 const screen = document.querySelector('.screen');
 const numbers = document.querySelectorAll(".buttons");
 
-const operator = document.querySelectorAll('.operators');
+const operator = document.querySelector('.operator');
 const add = document.querySelector('.add');
 const multiply = document.querySelector('.multiply');
 const subtract = document.querySelector('.subtract');
@@ -41,7 +41,13 @@ eight.addEventListener("click",() => {if (toClear > 0) {displayValue = []; toCle
 nine.addEventListener("click",() => {if (toClear > 0) {displayValue = []; toClear = 0}; displayValue.push(9); display()})
 zero.addEventListener("click", () => {if (toClear > 0) {displayValue = []; toClear = 0}; displayValue.push(0); display()});
 
-clear.addEventListener("click", () => {screen.textContent = ""; displayValue = []; a = 0; b = 0; result = 0});
+clear.addEventListener("click", () => 
+    {screen.textContent = ""; 
+        displayValue = []; 
+        a = 0; b = 0; 
+        result = 0;
+        counter = 0;
+        operator.textContent = ""});
 
 function display() {
     screen.textContent = displayValue.join('');
@@ -50,35 +56,40 @@ function display() {
 
 
 add.addEventListener("click",
-    () => {operation = "+"; toClear ++;
-        if(counterAdd % 2 === 0 && counterAdd > 0) {
-            a = a + b; 
-            b = parseInt(displayValue.join(''));
-            console.log(`a: ${a} b: ${b}`);
-        } else if (counterAdd > 0) { 
-            b = parseInt(displayValue.join(''));
-            operate(a, b, operation);
-            screen.textContent = result;
-            a = result;
-            console.log(`a: ${a} b: ${b}`);
-        } else {
-            a = parseInt(displayValue.join(''));
-            counterAdd = counterAdd + 1;
-            console.log(`a: ${a}`)
-        }
-    }); 
-
-multiply.addEventListener("click", 
-    () => {operation = "*"; toClear ++;
-        if(counter % 2 === 0 && counter > 0) {
-            a = a * b; 
-            b = parseInt(displayValue.join(''));
-            console.log(`a: ${a} b: ${b}`);
+    () => {operation = "+"; toClear ++; displayOperator(add);
+        if(screen.textContent === '') {
+            return;
         } else if (counter > 0) { 
             b = parseInt(displayValue.join(''));
             operate(a, b, operation);
             screen.textContent = result;
             a = result;
+            console.log(`a: ${a} b: ${b}`);
+        } else if (result !== undefined) {
+            a = result;
+            operation = "+"; toClear++; counter += 1;
+            console.log(`a: ${a} b: ${b}`);
+        } else {
+            a = parseInt(displayValue.join(''));
+            counter = counter + 1;
+            console.log(`a: ${a}`)
+        }
+    }); 
+
+multiply.addEventListener("click", 
+    () => {operation = "*"; toClear ++;displayOperator(multiply);
+        if(screen.textContent === '') {
+            return;
+        } else if (counter > 0) { 
+            a = result;
+            b = parseInt(displayValue.join(''));
+            operate(a, b, operation);
+            screen.textContent = result;
+            operation = "*"; toClear ++;
+            console.log(`a: ${a} b: ${b}`);
+        } else if (result !== undefined) {
+            a = result;
+            operation = "*"; toClear++; counter += 1;
             console.log(`a: ${a} b: ${b}`);
         } else {
             a = parseInt(displayValue.join(''));
@@ -88,16 +99,19 @@ multiply.addEventListener("click",
     }); 
 
 divide.addEventListener("click",     
-    () => {operation = "/"; toClear ++;
-        if(counter % 2 === 0 && counter > 0) {
-            a = a / b; 
-            b = parseInt(displayValue.join(''));
-            console.log(`a: ${a} b: ${b}`);
+    () => {operation = "/"; toClear ++;displayOperator(divide);
+        if(screen.textContent === '') {
+            return;
         } else if (counter > 0) { 
+            a = result;
             b = parseInt(displayValue.join(''));
             operate(a, b, operation);
             screen.textContent = result;
+            operation = "/"; toClear ++;
+            console.log(`a: ${a} b: ${b}`);
+        } else if (result !== undefined) {
             a = result;
+            operation = "/"; toClear++; counter += 1;
             console.log(`a: ${a} b: ${b}`);
         } else {
             a = parseInt(displayValue.join(''));
@@ -107,18 +121,22 @@ divide.addEventListener("click",
     }); 
 
 subtract.addEventListener("click", 
-    () => {operation = "-"; toClear ++;
-        if (counter % 2 === 0 && counter > 0) {
-            a = a - b; 
-            b = parseInt(displayValue.join(''));
-            console.log(`a: ${a} b: ${b}`);
+    () => {displayOperator(subtract);
+        if (screen.textContent === '') {
+            return;
         } else if (counter > 0) { 
             a = result;
             b = parseInt(displayValue.join(''));
             operate(a, b, operation);
             screen.textContent = result;
+            operation = "-"; toClear ++;
+            console.log(`a: ${a} b: ${b}`);
+        } else if (result !== undefined) {
+            a = result;
+            operation = "-"; toClear++; counter += 1;
             console.log(`a: ${a} b: ${b}`);
         } else {
+            operation = "-"; toClear ++;
             a = parseInt(displayValue.join(''));
             counter = counter + 1;
             console.log(`a: ${a}`)
@@ -126,10 +144,17 @@ subtract.addEventListener("click",
     }); 
 
 equals.addEventListener("click", () => 
-    {b = parseInt(displayValue.join('')); 
+    { if(screen.textContent === '') {
+        return;}
+    else {
+        b = parseInt(displayValue.join('')); 
         operate(a, b, operation); 
         console.log(`a: ${a} b: ${b}`); 
-        console.log(`result is ${result}`)});
+        console.log(`result is ${result}`)}
+        b = 0;
+        counter = 0;
+    });
+    
 
 function operate(a, b, operation) {
     if (operation === "+") {
@@ -165,4 +190,8 @@ function division (a, b) {
 
 function negative(a) {
     number = a * -1;
+}
+
+function displayOperator(sign) {
+    operator.textContent = sign.textContent;
 }
