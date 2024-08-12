@@ -26,7 +26,6 @@ let a;
 let b;
 let operation;
 let result;
-let counterAdd = 0;
 let counter = 0;
 let toClear = 0;
 
@@ -44,9 +43,11 @@ zero.addEventListener("click", () => {if (toClear > 0) {displayValue = []; toCle
 clear.addEventListener("click", () => 
     {screen.textContent = ""; 
         displayValue = []; 
-        a = 0; b = 0; 
-        result = 0;
+        a = ''; b = ''; 
+        result = undefined;
         counter = 0;
+        toClear = 0;
+        operation = '';
         operator.textContent = ""});
 
 function display() {
