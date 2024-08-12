@@ -1,0 +1,49 @@
+
+
+body {
+    text-align: center;
+    display:flex;
+    flex-direction: column;
+    align-items: center
+}
+
+div {
+    border: solid black 1px;
+
+}
+
+.container {
+    width: 200px;
+    height: 300px;
+    padding: 5%;
+}
+
+.number-container {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.number-operator-container {
+    display: flex;
+}
+
+.buttons {
+    width: 40px;
+    height: 30px;
+
+}
+
+.screen {
+    width: 200px;
+    height: 50px;
+}
+
+.operators {
+    width: 50px;
+}
+
+.operator {
+    width: 40px;
+}
