@@ -25,14 +25,16 @@ div {
     flex-wrap: wrap;
 }
 
+.number-container > button {
+    width: 45px;
+}
+
 .number-operator-container {
     display: flex;
 }
 
-.buttons {
-    width: 40px;
-    height: 30px;
-
+.operators > button {
+    width: 45px;
 }
 
 .screen {
